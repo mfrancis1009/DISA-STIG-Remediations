@@ -19,9 +19,6 @@
     Systems Tested  : 
     PowerShell Ver. : 
 
-.USAGE
-    Put any usage instructions here.
-    Example syntax:
     PS C:\> .\STIG-ID-WN10-AU-000500.ps1 
 #>
 
