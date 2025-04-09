@@ -1,0 +1,47 @@
+WN10-AC-000020 
+
+
+<#
+.SYNOPSIS
+The password history must be configured to 24 passwords remembered.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-AC-000020
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-AC-000020.ps1 
+#>
+# Set the password history to remember 24 passwords
+secedit /export /cfg "$env:temp\secpol.cfg"
+# Read the current security config
+$configPath = "$env:temp\secpol.cfg"
+$config = Get-Content $configPath
+# Modify or add the PasswordHistorySize setting
+if ($config -match "PasswordHistorySize") {
+    $config = $config -replace "PasswordHistorySize\s*=\s*\d+", "PasswordHistorySize = 24"
+} else {
+    $config += "`nPasswordHistorySize = 24"
+}
+# Save the updated config
+$config | Set-Content $configPath
+# Apply the updated config
+secedit /configure /db "$env:windir\security\local.sdb" /cfg $configPath /areas SECURITYPOLICY
+# Clean up
+Remove-Item $configPath -Force
+Write-Host "WN10-AC-000020 remediated: Password history is set to remember 24 passwords." -ForegroundColor Green
+ 
+
