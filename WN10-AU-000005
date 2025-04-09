@@ -1,0 +1,42 @@
+ WN10-AU-000005
+
+
+<#
+.SYNOPSIS
+The system must be configured to audit Account Logon - Credential Validation failures.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-AU-000005
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-AU-000005.ps1 
+#>
+# Remediate STIG ID: WN10-AU-000005
+# Requirement: Audit "Credential Validation" for Failure events
+Write-Output "Configuring audit policy for Credential Validation failures..."
+# Enable auditing of Credential Validation failures
+auditpol /set /subcategory:"Credential Validation" /failure:enable
+# Verify the change
+$credValidationAudit = auditpol /get /subcategory:"Credential Validation"
+if ($credValidationAudit -match "Failure") {
+    Write-Output "✅ Credential Validation failure auditing has been successfully enabled."
+} else {
+    Write-Output "❌ Failed to enable Credential Validation failure auditing."
+}
+ 
+
+
