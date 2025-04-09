@@ -1,0 +1,32 @@
+ WN10-00-000145 
+
+<#
+.SYNOPSIS
+Data Execution Prevention (DEP) must be configured to at least OptOut.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-05-04
+    Last Modified   : 2025-05-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-00-000145
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-00-000145.ps1 
+#>
+# Check current boot configuration ID (just to be sure we're targeting the correct one)
+bcdedit /enum
+# Now set DEP to OptOut using the exact syntax
+bcdedit /set nx OptOut
+ 
+
