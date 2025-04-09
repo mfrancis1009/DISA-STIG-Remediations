@@ -1,0 +1,32 @@
+ WN10-CC-000085
+
+
+<#
+.SYNOPSIS
+Early Launch Antimalware, Boot-Start Driver Initialization Policy must prevent boot drivers.
+
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-09-04
+    Last Modified   : 2025-09-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-CC-000085
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000085.ps1 
+#>
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Policies\EarlyLaunch" -Name "DriverLoadPolicy" -Type DWord -Value 3
+Write-Host "WN10-CC-000085: ELAM boot-start driver policy set to 'Good and unknown only'." -ForegroundColor Green
+ 
+
