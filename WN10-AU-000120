@@ -1,0 +1,32 @@
+ WN10-AU-000120 
+
+<#
+.SYNOPSIS
+Windows 10 must be configured to audit System >> IPSec Driver - Failure
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-AU-000120
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-AU-000120.ps1 
+#>
+
+# Enable auditing of IPSec Driver failures
+auditpol /set /subcategory:"IPsec Driver" /failure:enable
+Write-Output "Audit policy for IPSec Driver failures has been enabled."
+ 
+
