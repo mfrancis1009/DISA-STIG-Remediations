@@ -1,0 +1,40 @@
+ WN10-SO-000030 
+
+<#
+.SYNOPSIS
+Audit policy using subcategories must be enabled.
+
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-SO-000030
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-SO-000030.ps1 
+#>
+# Enable audit policy subcategory override
+$registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
+$valueName = "SCENoApplyLegacyAuditPolicy"
+$valueData = 1
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force
+}
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Force
+# Confirm it's set
+$check = Get-ItemProperty -Path $registryPath -Name $valueName
+Write-Output "SCENoApplyLegacyAuditPolicy is set to $($check.$valueName)"
+ 
+
