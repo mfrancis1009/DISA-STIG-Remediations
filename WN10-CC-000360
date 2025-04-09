@@ -1,0 +1,37 @@
+WN10-CC-000360 
+
+<#
+.SYNOPSIS
+The Windows Remote Management (WinRM) client must not use Digest authentication.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-CC-000360
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000360.ps1 
+#>
+# Define the registry path for WinRM client settings
+$winrmClientKey = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client"
+# Create the key if it doesn't exist
+if (-not (Test-Path $winrmClientKey)) {
+    New-Item -Path $winrmClientKey -Force | Out-Null
+}
+# Disable Digest authentication for the WinRM client
+Set-ItemProperty -Path $winrmClientKey -Name "AllowDigest" -Type DWord -Value 0
+Write-Host "WN10-CC-000360 remediated: Digest authentication for WinRM client has been disabled." -ForegroundColor Green
+ 
+
