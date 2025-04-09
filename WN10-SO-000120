@@ -1,0 +1,44 @@
+ WN10-SO-000120 
+
+
+<#
+.SYNOPSIS
+The Windows SMB server must be configured to always perform SMB packet signing.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-SO-000120
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-SO-000120.ps1 
+#>
+# Define the registry path
+$regPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa"
+# Create the key if it doesn't exist
+if (-not (Test-Path $regPath)) {
+    New-Item -Path $regPath -Force | Out-Null
+}
+# Registry path for SMB server signing policy
+$regPath = "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters"
+# Create the key if it doesn't exist
+if (-not (Test-Path $regPath)) {
+    New-Item -Path $regPath -Force | Out-Null
+}
+# Set the 'RequireSecuritySignature' value to 1 to enforce SMB signing
+Set-ItemProperty -Path $regPath -Name "RequireSecuritySignature" -Type DWord -Value 1
+Write-Host "WN10-SO-000120 remediated: SMB server is now configured to always perform SMB packet signing." -ForegroundColor Green
+ 
+
