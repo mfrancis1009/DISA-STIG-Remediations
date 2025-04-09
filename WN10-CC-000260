@@ -1,0 +1,46 @@
+WN10-CC-000260 
+
+
+<#
+.SYNOPSIS
+Windows 10 must be configured to require a minimum pin length of six characters or greater.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-05-04
+    Last Modified   : 2025-05-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000260
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000260.ps1 
+#>
+# Define the registry path and value
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\PassportForWork\PINComplexity"
+$valueName = "MinimumPINLength"
+$valueData = 6  # Minimum of 6 digits
+# Check if the registry path exists; create it if it doesn't
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force | Out-Null
+}
+# Set the registry value
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord -Force
+# Confirm the value
+$confirmed = Get-ItemProperty -Path $registryPath -Name $valueName
+if ($confirmed.MinimumPINLength -ge 6) {
+    Write-Output "✅ Minimum PIN length set to $($confirmed.MinimumPINLength)."
+} else {
+    Write-Output "❌ Failed to set Minimum PIN length."
+}
+ 
+
