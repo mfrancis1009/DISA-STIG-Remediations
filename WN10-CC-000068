@@ -1,0 +1,38 @@
+ WN10-CC-000068
+
+
+<#
+.SYNOPSIS
+Windows 10 must be configured to enable Remote host allows delegation of non-exportable credentials.
+
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-09-04
+    Last Modified   : 2025-09-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WWN10-CC-000068
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000068.ps1 
+#>
+$regPath = "HKLM:\Software\Policies\Microsoft\Windows\CredentialsDelegation"
+# Create the registry key if it doesn't exist
+if (-not (Test-Path $regPath)) {
+    New-Item -Path $regPath -Force | Out-Null
+}
+# Set the AllowProtectedCreds DWORD to 1 (enable delegation of non-exportable credentials)
+Set-ItemProperty -Path $regPath -Name "AllowProtectedCreds" -Type DWord -Value 1
+Write-Host "WN10-CC-000068: Delegation of non-exportable credentials enabled." -ForegroundColor Green
+ 
+
