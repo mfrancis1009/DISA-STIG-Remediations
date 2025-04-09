@@ -1,0 +1,52 @@
+ WN10-CC-000175
+
+<#
+.SYNOPSIS
+
+The Application Compatibility Program Inventory must be prevented from collecting data and sending the information to Microsoft
+
+.
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-03-04
+    Last Modified   : 2025-03-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000175
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID-WN10-CC-000175.ps1 
+#>
+# Define the registry path and value name
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppCompat"
+$valueName = "DisableInventory"
+$valueData = 1  # 1 means disabled
+# Check if the registry key exists, if not, create it
+if (-not (Test-Path $registryPath)) {
+    Write-Host "Registry path does not exist. Creating path..."
+    New-Item -Path $registryPath -Force
+} else {
+    Write-Host "Registry path exists."
+}
+# Set the value to disable the Application Compatibility Program Inventory
+Write-Host "Setting registry value..."
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Force
+# Verify the registry value has been set correctly
+$checkValue = Get-ItemProperty -Path $registryPath -Name $valueName
+if ($checkValue.DisableInventory -eq 1) {
+    Write-Host "Application Compatibility Program Inventory is successfully disabled."
+} else {
+    Write-Host "Failed to disable Application Compatibility Program Inventory."
+}
+ 
+
+
