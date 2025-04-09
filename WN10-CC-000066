@@ -1,0 +1,33 @@
+ WN10-CC-000066
+
+
+<#
+.SYNOPSIS
+Command line data must be included in process creation events.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-09-04
+    Last Modified   : 2025-09-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :WN10-CC-000066
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000066.ps1 
+#>
+$regPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit"
+New-Item -Path $regPath -Force | Out-Null
+Set-ItemProperty -Path $regPath -Name "ProcessCreationIncludeCmdLine_Enabled" -Type DWord -Value 1
+Write-Host "WN10-CC-000066: Command line auditing for process creation enabled." -ForegroundColor Green
+ 
+
