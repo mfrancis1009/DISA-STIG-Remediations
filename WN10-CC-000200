@@ -1,0 +1,32 @@
+ WN10-CC-000200
+
+<#
+
+.SYNOPSIS
+Administrator accounts must not be enumerated during elevation.
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-09-04
+    Last Modified   : 2025-09-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-CC-000200
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000200.ps1 
+#>
+$regPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\CredUI"
+New-Item -Path $regPath -Force | Out-Null
+Set-ItemProperty -Path $regPath -Name "EnumerateAdministrators" -Type DWord -Value 0
+Write-Host "WN10-CC-000200: Admin account enumeration during elevation disabled." -ForegroundColor Green
+ 
+
