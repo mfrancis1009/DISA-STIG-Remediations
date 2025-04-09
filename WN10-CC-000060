@@ -1,0 +1,42 @@
+ WN10-CC-000060 
+
+<#
+.SYNOPSIS
+Block Connections to Non-Domain Networks When Connected to a Domain Authenticated Network
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-CC-000060
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000060.ps1 
+#>
+
+
+# Define the registry path and value
+$registryPath = "HKLM:\Software\Policies\Microsoft\Windows\WcmSvc\GroupPolicy"
+$valueName = "fBlockNonDomain"
+$valueData = 1  # 1 means block non-domain connections
+# Check if the registry path exists; if not, create it
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force | Out-Null
+}
+# Set the registry value to block non-domain networks
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord
+# Output the result
+Write-Output "Blocking of non-domain networks when connected to a domain network is now enabled."
+ 
+
