@@ -1,0 +1,32 @@
+ WN10-SO-000025
+
+
+<#
+.SYNOPSIS
+The system must be configured to audit Detailed Tracking - Process Creation successes.
+
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-09-04
+    Last Modified   : 2025-09-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-SO-000025
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-SO-000025.ps1 
+#>
+Rename-LocalUser -Name "Guest" -NewName "DisabledGuest"
+Write-Host "WN10-SO-000025: Guest account renamed to 'DisabledGuest'." -ForegroundColor Green
+ 
+
