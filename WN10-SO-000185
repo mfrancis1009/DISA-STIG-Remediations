@@ -1,0 +1,39 @@
+WN10-SO-000185 
+
+<#
+.SYNOPSIS
+PKU2U authentication using online identities must be prevented.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-05-04
+    Last Modified   : 2025-05-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000185
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-SO-000185.ps1 
+#>
+# Disable PKU2U online identity authentication
+$registryPath = "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa\pku2u"
+$valueName = "AllowOnlineID"
+$valueData = 0  # 0 = Disabled
+# Create registry key if it doesn't exist
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force
+}
+# Set registry value to disable online identity usage for PKU2U
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord -Force
+Write-Output "✅ PKU2U online identity authentication has been disabled."
+ 
+
