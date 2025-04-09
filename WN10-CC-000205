@@ -1,0 +1,45 @@
+ WN10-CC-000205 
+
+<#
+.SYNOPSIS
+Windows Telemetry must not be configured to Full.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-05-04
+    Last Modified   : 2025-05-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000205
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000205.ps1 
+#>
+# Define the registry path and value
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
+$valueName = "AllowTelemetry"
+$valueData = 1  # Set to 1 = Basic (Microsoft-recommended minimum for compatibility)
+# Create the registry key if it doesn't exist
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force | Out-Null
+}
+# Set the telemetry level to Basic
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord
+# Confirm the change
+$checkValue = Get-ItemProperty -Path $registryPath -Name $valueName
+if ($checkValue.AllowTelemetry -eq 1) {
+    Write-Host "Telemetry successfully set to Basic."
+} else {
+    Write-Host "Failed to set telemetry level."
+}
+ 
+
