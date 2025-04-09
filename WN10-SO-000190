@@ -1,0 +1,41 @@
+ WN10-SO-000190 
+
+
+<#
+.SYNOPSIS
+Kerberos encryption types must be configured to prevent the use of DES and RC4 encryption suites.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-SO-000190
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-SO-000190.ps1 
+#>
+  # Define the registry path and value
+  $registryPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters"
+  $valueName = "SupportedEncryptionTypes"
+  $valueData = 0x7ffffff8  # This value corresponds to enabling AES128_HMAC_SHA1, AES256_HMAC_SHA1, and Future encryption types
+  # Check if the registry path exists; if not, create it
+  if (-not (Test-Path $registryPath)) {
+      New-Item -Path $registryPath -Force | Out-Null
+  }
+  # Set the registry value to configure allowed encryption types
+  Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord
+  # Output the result
+  Write-Output "Kerberos encryption types have been configured to exclude DES and RC4."
+ 
+
