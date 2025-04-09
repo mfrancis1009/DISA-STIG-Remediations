@@ -1,0 +1,32 @@
+ WN10-CC-000170
+
+<#
+.SYNOPSIS
+The system must be configured to audit Detailed Tracking - Process Creation successes.
+
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-09-04
+    Last Modified   : 2025-09-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000170
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000170.ps1 
+#>
+$regPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"
+Set-ItemProperty -Path $regPath -Name "MSAOptional" -Type DWord -Value 1
+Write-Host "WN10-CC-000170: Microsoft account made optional for modern apps." -ForegroundColor Green
+ 
+
