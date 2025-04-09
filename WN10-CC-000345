@@ -1,0 +1,38 @@
+WN10-CC-000345 
+
+<#
+.SYNOPSIS
+The Windows Remote Management (WinRM) service must not use Basic authentication.
+<#
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-04-04
+    Last Modified   : 2025-04-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         :  WN10-CC-000345
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-CC-000345.ps1 
+#>
+# Ensure the WinRM Service policy key exists
+$winrmServiceKey = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service"
+if (-not (Test-Path $winrmServiceKey)) {
+    New-Item -Path $winrmServiceKey -Force | Out-Null
+}
+# Disable Basic authentication
+Set-ItemProperty -Path $winrmServiceKey -Name "AllowBasic" -Type DWord -Value 0
+# (Optional) Restart WinRM service to apply changes
+Restart-Service -Name "WinRM" -Force
+Write-Host "WN10-CC-000345 remediated: Basic authentication for WinRM service has been disabled." -ForegroundColor Green
+ 
+
