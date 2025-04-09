@@ -1,0 +1,39 @@
+WN10-CC-000326
+
+ <#
+.SYNOPSIS
+PowerShell script block logging must be enabled on Windows 10.
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-01-04
+    Last Modified   : 2025-01-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000326
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID-WN10-CC-000326.ps1 
+#>
+# Define the registry path and value
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging"
+$valueName = "EnableScriptBlockLogging"
+$valueData = 1
+# Check if the registry path exists; if not, create it
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force | Out-Null
+}
+# Set the registry value to enable Script Block Logging
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord
+# Output the result
+Write-Output "PowerShell Script Block Logging has been enabled." 
+
