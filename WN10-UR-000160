@@ -1,0 +1,35 @@
+ WN10-UR-000160
+
+
+<#
+.SYNOPSIS
+The Restore files and directories user right must only be assigned to the Administrators group.
+
+
+.NOTES
+    Author          : Michael Francis
+    LinkedIn        :linkedin.com/in/michael-francis1
+    GitHub          :github.com/mfrancis1009
+    Date Created    : 2025-09-04
+    Last Modified   : 2025-09-04
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-UR-000160
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID- WN10-UR-000160.ps1 
+#>
+secedit /export /cfg C:\secpol.cfg
+(gc C:\secpol.cfg) -replace "SeRestorePrivilege =.*", "SeRestorePrivilege = *S-1-5-32-544" | Set-Content C:\secpol.cfg
+secedit /configure /db secedit.sdb /cfg C:\secpol.cfg /areas USER_RIGHTS
+Remove-Item C:\secpol.cfg -Force
+Write-Host "WN10-UR-000160: 'Restore files and directories' right restricted to Administrators." -ForegroundColor Green
+ 
+
